@@ -11,7 +11,11 @@ public class FileWriter : IFileWriter
         try
         {
             Directory.CreateDirectory("Data");
-            await File.AppendAllTextAsync(_filePath, text + Environment.NewLine, Encoding.UTF8);
+            
+            using FileStream stream = new FileStream(_filePath, FileMode.Append, FileAccess.Write, FileShare.None);
+            using StreamWriter writer = new StreamWriter(stream, Encoding.UTF8);
+
+            await writer.WriteLineAsync(text);
         }
         catch (IOException ex)
         {
