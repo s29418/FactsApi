@@ -1,3 +1,4 @@
+using FactsApi.Helpers;
 using FactsApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpClient<IFactService, FactService>();
+builder.Services.AddSingleton<IFileWriter, FileWriter>();
 
 var app = builder.Build();
 
